@@ -1,13 +1,17 @@
 # Morpheus GraphQL Haxl Example
 
-build app
+## Getting Started
 
-```ssh
-stack install 
-```
+- build app
 
-run Server after build succeed.
+  ```ssh
+  stack install 
+  ```
 
-```ssh
-haxl-server
-```
+- run Server after build succeed.
+
+  ```ssh
+  haxl-server
+  ```
+
+- visit: http://localhost:3000/
