@@ -14,6 +14,9 @@ where
 -- examples
 import Control.Applicative ((<|>))
 import Control.Monad.IO.Class (liftIO)
+import Data.Morpheus
+  ( runApp,
+  )
 import Data.Morpheus.Server
   ( httpPlayground,
   )
@@ -25,13 +28,6 @@ import Network.Wai.Handler.Warp
   ( defaultSettings,
     runSettings,
     setPort,
-  )
-import Network.Wai.Handler.WebSockets
-  ( websocketsOr,
-  )
-import Network.WebSockets
-  ( ServerApp,
-    defaultConnectionOptions,
   )
 import Web.Scotty
   ( ActionM,
@@ -49,27 +45,16 @@ import Prelude
 isSchema :: ActionM String
 isSchema = param "schema"
 
-httpEndpoint ::
-  ( SubApp ServerApp e,
-    PubApp e
-  ) =>
-  RoutePattern ->
-  [e -> IO ()] ->
-  App e IO ->
-  ScottyM ()
-httpEndpoint route publish app = do
+httpEndpoint :: RoutePattern -> App e IO -> ScottyM ()
+httpEndpoint route app = do
   get route $
     (isSchema *> raw (render app))
       <|> raw httpPlayground
-  post route $ raw =<< (liftIO . httpPubApp publish app =<< body)
+  post route $ raw =<< (liftIO . runApp app =<< body)
 
-startServer :: ServerApp -> ScottyM () -> IO ()
-startServer wsApp app = do
+startServer :: ScottyM () -> IO ()
+startServer app = do
   httpApp <- scottyApp app
-  runSettings settings $
-    websocketsOr
-      defaultConnectionOptions
-      wsApp
-      httpApp
+  runSettings settings httpApp
   where
     settings = setPort 3000 defaultSettings

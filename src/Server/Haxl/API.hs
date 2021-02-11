@@ -15,13 +15,11 @@ import Data.Morpheus
     deriveApp,
     runApp,
   )
-import Data.Morpheus.App (MapAPI)
 import Data.Morpheus.Server
   ( httpPlayground,
   )
 import Data.Morpheus.Types
   ( ComposedResolver,
-    ID,
     QUERY,
     Resolver,
     ResolverQ,
@@ -29,6 +27,9 @@ import Data.Morpheus.Types
     Undefined (..),
     lift,
     render,
+  )
+import Data.Morpheus.Types.IO
+  ( MapAPI,
   )
 import Data.Text (Text)
 import Haxl.Core (dataFetch, initEnv, runHaxl, stateEmpty, stateSet)
@@ -40,6 +41,7 @@ import Server.Haxl.DataSource
 import Server.Haxl.Schema
   ( Deity (..),
     DeityArgs (..),
+    ID,
     Query (..),
   )
 import Server.Utils (isSchema)

@@ -12,14 +12,12 @@ module Server.Haxl.DataSource
     State (DeityState),
     Haxl,
     DeityReq (..),
+    ID,
   )
 where
 
 import Control.Monad
 import Data.Hashable
-import Data.Morpheus.Types
-  ( ID (..),
-  )
 import Data.Semigroup ((<>))
 import Data.Text (Text)
 import Data.Typeable
@@ -39,6 +37,8 @@ import Server.Haxl.Schema
   )
 
 type Haxl = GenHaxl () ()
+
+type ID = Text
 
 data DeityReq a where
   GetDeityIds :: DeityReq [ID]
@@ -64,7 +64,7 @@ instance DataSourceName DeityReq where
   dataSourceName _ = "DeityDataSource"
 
 instance DataSource u DeityReq where
-  fetch _ _ _ = BackgroundFetch myfetch
+  fetch _ _ _ = BackgroundFetch myFetch
 
 fetchAll :: Foldable t => t (ResultVar [ID]) -> IO ()
 fetchAll allIdVars = do
@@ -78,10 +78,10 @@ handleBatched f ls = unless (null ids) $ do
   where
     (ids, vars) = unzip ls
 
-myfetch ::
+myFetch ::
   [BlockedFetch DeityReq] ->
   IO ()
-myfetch blockedFetches = do
+myFetch blockedFetches = do
   unless (null allIdVars) (fetchAll allIdVars)
   handleBatched fetchDeityNames [(uid, r) | BlockedFetch (GetDeityNameById uid) r <- blockedFetches]
   handleBatched fetchDeityPowers [(uid, r) | BlockedFetch (GetDeityPowerById uid) r <- blockedFetches]
@@ -99,7 +99,7 @@ fetchDeityIds = do
 fetchDeityNames :: [ID] -> IO [Text]
 fetchDeityNames ids = do
   print ("Fetch Name for: " <> show ids)
-  pure (map unpackID ids)
+  pure ids
 
 fetchDeityPowers :: [ID] -> IO [Maybe Text]
 fetchDeityPowers ids = do

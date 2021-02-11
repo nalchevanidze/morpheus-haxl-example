@@ -6,15 +6,17 @@ module Server.Haxl.Schema
   ( Deity (..),
     Query (..),
     DeityArgs (..),
+    ID,
   )
 where
 
 import Data.Morpheus.Types
   ( GQLType (..),
-    ID,
   )
 import Data.Text (Text)
 import GHC.Generics (Generic)
+
+type ID = Text
 
 data Deity m = Deity
   { name :: m Text,

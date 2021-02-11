@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 373c5e73cb3824fd8702383bc48b897913c3305653ae94a7f625c771b8980fbf
+-- hash: 318b7a41be5463f73e6d634e4ea55a0424322c7ce7fb537c861b8f110a51edde
 
 name:           morpheus-haxl-example
 version:        0.1.0
@@ -20,18 +20,15 @@ license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 data-files:
-    assets/db/deprecated/address.json
-    assets/db/deprecated/user.json
-    assets/db/mythology/greek.json
+    assets/db/mythology.json
 
 source-repository head
   type: git
   location: https://github.com/nalchevanidze/morpheus-graphql
 
-executable scotty-server
+executable haxl-server
   main-is: Main.hs
   other-modules:
-      Client.Client
       Files
       Server.Haxl.API
       Server.Haxl.DataSource
@@ -52,6 +49,7 @@ executable scotty-server
     , haxl
     , http-types
     , morpheus-graphql >=0.16.0
+    , morpheus-graphql-core >=0.16.0
     , mtl >=2.0 && <=2.3
     , req
     , scotty
