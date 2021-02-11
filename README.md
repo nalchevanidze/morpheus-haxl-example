@@ -4,13 +4,13 @@
 
 - build app
 
-  ```ssh
+  ```sh
   stack install 
   ```
 
 - run Server after build succeed.
 
-  ```ssh
+  ```sh
   haxl-server
   ```
 
