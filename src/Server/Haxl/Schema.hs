@@ -5,7 +5,7 @@
 module Server.Haxl.Schema
   ( Deity (..),
     Query (..),
-    DeityArgs (..),
+    DeityArguments (..),
     ID,
   )
 where
@@ -27,14 +27,14 @@ data Deity m = Deity
       GQLType
     )
 
-newtype DeityArgs = DeityArgs {deityId :: ID}
+newtype DeityArguments = DeityArguments {id :: ID}
   deriving
     ( Generic,
       GQLType
     )
 
 data Query m = Query
-  { deity :: DeityArgs -> m (Deity m),
+  { deity :: DeityArguments -> m (Deity m),
     deities :: m [Deity m]
   }
   deriving

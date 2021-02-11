@@ -40,7 +40,7 @@ import Server.Haxl.DataSource
   )
 import Server.Haxl.Schema
   ( Deity (..),
-    DeityArgs (..),
+    DeityArguments (..),
     ID,
     Query (..),
   )
@@ -53,6 +53,7 @@ import Web.Scotty
     post,
     raw,
   )
+import Prelude hiding (id)
 
 -- FETCH
 getDeityIds :: Haxl [ID]
@@ -65,21 +66,18 @@ getDeityPowerById :: ID -> Haxl (Maybe Text)
 getDeityPowerById = dataFetch . GetDeityPowerById
 
 -- RESOLVERS
-getDeityById :: ID -> ResolverQ e Haxl Deity
-getDeityById deityId =
+resolveDeity :: DeityArguments -> ResolverQ e Haxl Deity
+resolveDeity DeityArguments {id}  =
   pure
     Deity
-      { name = lift (getDeityNameById deityId),
-        power = lift (getDeityPowerById deityId)
+      { name = lift (getDeityNameById id),
+        power = lift (getDeityPowerById id)
       }
-
-resolveDeity :: DeityArgs -> ResolverQ e Haxl Deity
-resolveDeity DeityArgs {deityId} = getDeityById deityId
 
 resolveDeities :: ComposedResolver QUERY e Haxl [] Deity
 resolveDeities = do
   ids <- lift getDeityIds
-  traverse getDeityById ids
+  traverse (resolveDeity . DeityArguments) ids
 
 resolveQuery :: Query (Resolver QUERY e Haxl)
 resolveQuery =
