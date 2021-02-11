@@ -1,0 +1,63 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 373c5e73cb3824fd8702383bc48b897913c3305653ae94a7f625c771b8980fbf
+
+name:           morpheus-haxl-example
+version:        0.1.0
+synopsis:       examples
+description:    examples of GraphQL APIs
+category:       web, graphql
+homepage:       https://github.com/nalchevanidze/morpheus-graphql#readme
+bug-reports:    https://github.com/nalchevanidze/morpheus-graphql/issues
+author:         Daviti Nalchevanidze
+maintainer:     Daviti Nalchevanidze
+copyright:      (c) 2019 Daviti Nalchevanidze
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+data-files:
+    assets/db/deprecated/address.json
+    assets/db/deprecated/user.json
+    assets/db/mythology/greek.json
+
+source-repository head
+  type: git
+  location: https://github.com/nalchevanidze/morpheus-graphql
+
+executable scotty-server
+  main-is: Main.hs
+  other-modules:
+      Client.Client
+      Files
+      Server.Haxl.API
+      Server.Haxl.DataSource
+      Server.Haxl.Schema
+      Server.Scotty
+      Server.Utils
+      Paths_morpheus_haxl_example
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+  build-depends:
+      aeson >=1.4.4.0 && <=1.6
+    , base >=4.7 && <5
+    , bytestring >=0.10.4 && <0.11
+    , containers >=0.4.2.1 && <0.7
+    , extra
+    , hashable
+    , haxl
+    , http-types
+    , morpheus-graphql >=0.16.0
+    , mtl >=2.0 && <=2.3
+    , req
+    , scotty
+    , stm
+    , text >=1.2.3.0 && <1.3
+    , transformers
+    , wai
+    , warp
+  default-language: Haskell2010
