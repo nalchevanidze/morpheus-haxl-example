@@ -99,6 +99,12 @@ rootResolver =
 app :: App () Haxl
 app = deriveApp rootResolver
 
+runHaxlApp :: MapAPI a b => App e Haxl -> a -> IO b
+runHaxlApp haxlApp input = do
+  let stateStore = stateSet DeityState stateEmpty
+  environment <- initEnv stateStore ()
+  runHaxl environment (runApp haxlApp input)
+
 httpEndpoint ::
   RoutePattern ->
   App () Haxl ->
@@ -106,9 +112,3 @@ httpEndpoint ::
 httpEndpoint route app' = do
   get route $ (isSchema *> raw (render app)) <|> raw httpPlayground
   post route $ raw =<< (liftIO . runHaxlApp app' =<< body)
-
-runHaxlApp :: MapAPI a b => App e Haxl -> a -> IO b
-runHaxlApp haxlApp input = do
-  let stateStore = stateSet DeityState stateEmpty
-  environment <- initEnv stateStore ()
-  runHaxl environment (runApp haxlApp input)
