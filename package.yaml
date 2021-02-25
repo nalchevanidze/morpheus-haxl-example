@@ -17,6 +17,7 @@ dependencies:
   - mtl                             >= 2.0       && <= 2.3
   - morpheus-graphql                >= 0.17.0
   - morpheus-graphql-core           >= 0.17.0
+  - morpheus-graphql-app            >= 0.17.0
   - scotty
   - wai
   - warp

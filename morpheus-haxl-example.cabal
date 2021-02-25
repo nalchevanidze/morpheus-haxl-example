@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c2f51c0062f3707d45a0fb700579c549dc316cd85e9bc1c484d7a74658786e82
+-- hash: f1f392c21ddf61baf13fc7d4f60fa12f96aa48ef8ddc61988b0ab3f964883b0e
 
 name:           morpheus-haxl-example
 version:        0.1.0
@@ -48,6 +48,7 @@ executable haxl-server
     , haxl
     , http-types
     , morpheus-graphql >=0.17.0
+    , morpheus-graphql-app >=0.17.0
     , morpheus-graphql-core >=0.17.0
     , mtl >=2.0 && <=2.3
     , req

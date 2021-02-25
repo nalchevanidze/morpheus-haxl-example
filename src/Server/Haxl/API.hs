@@ -28,7 +28,7 @@ import Data.Morpheus.Types
     lift,
     render,
   )
-import Data.Morpheus.Types.IO
+import Data.Morpheus.App
   ( MapAPI,
   )
 import Data.Text (Text)
