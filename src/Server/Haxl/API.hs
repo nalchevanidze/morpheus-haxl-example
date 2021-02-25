@@ -27,8 +27,9 @@ import Data.Morpheus.Types
     Undefined (..),
     lift,
     render,
+    ID
   )
-import Data.Morpheus.Types.IO
+import Data.Morpheus.App
   ( MapAPI,
   )
 import Data.Text (Text)
@@ -41,7 +42,6 @@ import Server.Haxl.DataSource
 import Server.Haxl.Schema
   ( Deity (..),
     DeityArguments (..),
-    ID,
     Query (..),
   )
 import Server.Utils (isSchema)

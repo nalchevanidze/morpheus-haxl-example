@@ -8,8 +8,7 @@
 {-# LANGUAGE TypeFamilies #-}
 
 module Server.Haxl.DataSource
-  ( Deity (..),
-    State (DeityState),
+  ( State (DeityState),
     Haxl,
     DeityReq (..),
     ID,
@@ -18,6 +17,7 @@ where
 
 import Control.Monad
 import Data.Hashable
+import Data.Morpheus.Types (ID(..))
 import Data.Semigroup ((<>))
 import Data.Text (Text)
 import Data.Typeable
@@ -32,13 +32,8 @@ import Haxl.Core
     StateKey (..),
     putSuccess,
   )
-import Server.Haxl.Schema
-  ( Deity (..),
-  )
 
 type Haxl = GenHaxl () ()
-
-type ID = Text
 
 data DeityReq a where
   GetDeityIds :: DeityReq [ID]
@@ -99,7 +94,7 @@ fetchDeityIds = do
 fetchDeityNames :: [ID] -> IO [Text]
 fetchDeityNames ids = do
   print ("Fetch Name for: " <> show ids)
-  pure ids
+  pure (map unpackID ids)
 
 fetchDeityPowers :: [ID] -> IO [Maybe Text]
 fetchDeityPowers ids = do

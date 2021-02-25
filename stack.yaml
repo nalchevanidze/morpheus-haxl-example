@@ -1,5 +1,5 @@
 # 8.10.1
-resolver: nightly-2020-06-29
+resolver: lts-17.4
 save-hackage-creds: false
 packages:
   - .
@@ -14,5 +14,6 @@ extra-deps:
   - fastsum-0.1.1.1
   - type-aligned-0.9.6
   - haxl-2.3.0.0
-  - morpheus-graphql-0.16.0
-  - morpheus-graphql-core-0.16.0
+  - morpheus-graphql-0.17.0
+  - morpheus-graphql-app-0.17.0
+  - morpheus-graphql-core-0.17.0
