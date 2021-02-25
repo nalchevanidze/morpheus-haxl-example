@@ -1,5 +1,5 @@
 # 8.10.1
-resolver: nightly-2020-06-29
+resolver: lts-17.4
 save-hackage-creds: false
 packages:
   - .
